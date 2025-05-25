@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benim Harika Blogum</title>
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light"> <div class="container">
+<body data-theme="light">
+
+    <div class="container">
         <nav class="top-nav">
             <button id="theme-toggle">☀️/🌙</button>
             <a href="hakkimda.html">Hakkımda</a>
@@ -21,18 +23,19 @@
             <input type="text" id="searchInput" onkeyup="filterPosts()" placeholder="Yazılarda Ara...">
         </div>
 
-<section class="posts-section">
-    <ul id="postList" class="post-list">
-        </ul>
-    <div class="load-more-container" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
-        <button id="loadMoreBtn" style="display: none; padding: 12px 25px; cursor: pointer; background-color: var(--button-bg); color: var(--button-text); border: 1px solid var(--border-color); border-radius: 5px; font-size: 0.95em;">Daha fazlasını yükle</button>
-    </div>
-</section>
+        <section class="posts-section">
+            <ul id="postList" class="post-list">
+                </ul>
+            <div class="load-more-container"> {/* Inline stiller kaldırıldı */}
+                <button id="loadMoreBtn" style="display: none;">Daha fazlasını yükle</button> {/* Sadece display:none kaldı, diğer inline stiller kaldırıldı */}
+            </div>
+        </section>
 
         <footer>
             <p>&copy; <span id="currentYear"></span> Yusuf ÇAKAR - Tüm hakları saklıdır.</p>
         </footer>
     </div>
-<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
