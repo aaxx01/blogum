@@ -1,19 +1,22 @@
 // script.js
 
-// TÜM YAZILARINIZI BURADA TANIMLAYIN
+// TÜM YAZILARINIZI BURADA YENİ FORMATLA TANIMLAYIN
 const allPosts = [
-    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
-    { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025" },
-    { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025" },
-    { title: "Sekizinci Blog Gönderisi", href: "sekizinci-gonderi.html", date: "25 Mart 2025" },
-    { title: "Yedinci Harika Makale", href: "yedinci-makale.html", date: "01 Nisan 2025" },
-    { title: "Altıncı Yazı Denemesi", href: "altinci-yazi.html", date: "05 Nisan 2025" },
-    { title: "Beşinci Yazı: Derinlemesine Bakış", href: "besinci-yazi.html", date: "10 Nisan 2025" },
-    { title: "Zengin İçerik Örneği", href: "zengin-icerik.html", date: "20 Nisan 2025" },
-    { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025" },
-    { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025" },
-    { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025" }
+    // ÖNEMLİ: Her yazı için monthShort ve dayShort alanlarını doldurmanız gerekecek.
+    // Mevcut 'date' alanını referans alarak bunları oluşturabilirsiniz.
+    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025", monthShort: "MART", dayShort: "01" },
+    { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025", monthShort: "MART", dayShort: "05" },
+    { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025", monthShort: "MART", dayShort: "15" },
+    { title: "Sekizinci Blog Gönderisi", href: "sekizinci-gonderi.html", date: "25 Mart 2025", monthShort: "MART", dayShort: "25" },
+    { title: "Yedinci Harika Makale", href: "yedinci-makale.html", date: "01 Nisan 2025", monthShort: "NİS", dayShort: "01" },
+    { title: "Altıncı Yazı Denemesi", href: "altinci-yazi.html", date: "05 Nisan 2025", monthShort: "NİS", dayShort: "05" },
+    { title: "Beşinci Yazı: Derinlemesine Bakış", href: "besinci-yazi.html", date: "10 Nisan 2025", monthShort: "NİS", dayShort: "10" },
+    { title: "Zengin İçerik Örneği", href: "zengin-icerik.html", date: "20 Nisan 2025", monthShort: "NİS", dayShort: "20" },
+    { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025", monthShort: "MAY", dayShort: "01" },
+    { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025", monthShort: "MAY", dayShort: "15" },
+    { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025", monthShort: "MAY", dayShort: "25" }
     // Daha fazla yazınız varsa buraya ekleyebilirsiniz.
+    // Örnek: { title: "Yeni Yazı", href: "yeni.html", date: "19 Mayıs 2025", monthShort: "MAY", dayShort: "19" },
 ];
 
 const postsPerPage = 5; // Her seferinde kaç yazı gösterileceği
@@ -55,11 +58,11 @@ function filterPosts() {
     const postItems = postListContainer.getElementsByClassName('post-item');
 
     for (let i = 0; i < postItems.length; i++) {
-        const linkElement = postItems[i].getElementsByTagName('a')[0];
-        if (linkElement) {
+        const linkElement = postItems[i].getElementsByTagName('a')[0]; // Başlık linkini al
+        if (linkElement) { // Sadece başlık linki olanları dikkate al
             const txtValue = linkElement.textContent || linkElement.innerText;
             if (txtValue.toLowerCase().indexOf(filterValue) > -1) {
-                postItems[i].style.display = "";
+                postItems[i].style.display = ""; // Stili flex veya block olarak ayarlamak için CSS'e bırakalım
             } else {
                 postItems[i].style.display = "none";
             }
@@ -77,33 +80,36 @@ if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
 }
 
-// YAZILARI SAYFAYA EKLEYEN FONKSİYON
+// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Kompakt Görünüm İçin Düzenlendi)
 function renderPosts() {
-    if (!postListContainer) return; // Eğer postListContainer yoksa (örneğin hakkimda.html'de) işlem yapma
+    if (!postListContainer) return;
 
     const postsToRender = allPosts.slice(postsCurrentlyDisplayed, postsCurrentlyDisplayed + postsPerPage);
 
     postsToRender.forEach(post => {
         const listItem = document.createElement('li');
-        listItem.className = 'post-item';
-        // *** DİKKAT: BURASI DÜZELTİLDİ! ***
-        // Önceki kodunuzda burada bir hata vardı. Doğrusu aşağıdaki gibi olmalı:
-        listItem.innerHTML = `<a href="${post.href}">${post.title}</a><span class="post-date">${post.date}</span>`;
+        // CSS ile daha iyi kontrol için sınıflar ekleyelim
+        listItem.className = 'post-item post-item-compact';
+        listItem.innerHTML = `
+            <div class="post-date-compact">
+                <span class="post-month-short">${post.monthShort}</span>
+                <span class="post-day-short">${post.dayShort}</span>
+            </div>
+            <a href="${post.href}" class="post-title-compact">${post.title}</a>
+        `;
         postListContainer.appendChild(listItem);
     });
 
     postsCurrentlyDisplayed += postsToRender.length;
 
-    // "Daha fazlasını yükle" butonunun görünürlüğünü ayarla
     if (loadMoreBtn) {
         if (postsCurrentlyDisplayed >= allPosts.length) {
-            loadMoreBtn.style.display = 'none'; // Tüm yazılar gösterildiyse butonu gizle
+            loadMoreBtn.style.display = 'none';
         } else {
-            // Butonu sadece gerçekten daha fazla yazı varsa göster (ilk yüklemede veya sonrasında)
             if (allPosts.length > postsPerPage && postsCurrentlyDisplayed < allPosts.length) {
-                loadMoreBtn.style.display = 'block';
+                loadMoreBtn.style.display = 'block'; // Veya CSS ile ortalamak için 'inline-block'
             } else {
-                loadMoreBtn.style.display = 'none'; // Eğer toplam yazı sayısı ilk gösterimden az veya eşitse de gizle
+                loadMoreBtn.style.display = 'none';
             }
         }
     }
@@ -118,8 +124,3 @@ if (postListContainer) {
 if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', renderPosts);
 }
-
-// Not: Bu script.js dosyası, <script src="script.js"></script> etiketi ile
-// tüm HTML sayfalarınıza (index.html, hakkimda.html, yazı sayfaları vb.) eklenebilir.
-// Script içindeki kontroller (if (themeToggle) vb.) sayesinde sadece ilgili sayfada
-// bulunan elementlerle ilgili kodlar çalışacaktır.
