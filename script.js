@@ -55,14 +55,14 @@ function filterPosts() {
     if (!searchInput || !postListContainer) return; // Gerekli elemanlar yoksa çık
 
     const filterValue = searchInput.value.toLowerCase();
-    const postItems = postListContainer.getElementsByClassName('post-item');
+    const postItems = postListContainer.getElementsByClassName('post-item'); // .post-item-compact da bu sınıfa dahil
 
     for (let i = 0; i < postItems.length; i++) {
-        const linkElement = postItems[i].getElementsByTagName('a')[0]; // Başlık linkini al
-        if (linkElement) { // Sadece başlık linki olanları dikkate al
+        const linkElement = postItems[i].getElementsByClassName('post-title-compact')[0]; // Başlık linkini sınıf adıyla al
+        if (linkElement) {
             const txtValue = linkElement.textContent || linkElement.innerText;
             if (txtValue.toLowerCase().indexOf(filterValue) > -1) {
-                postItems[i].style.display = ""; // Stili flex veya block olarak ayarlamak için CSS'e bırakalım
+                postItems[i].style.display = "flex"; // Kompakt düzen flex kullandığı için
             } else {
                 postItems[i].style.display = "none";
             }
@@ -80,7 +80,7 @@ if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
 }
 
-// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Kompakt Görünüm İçin Düzenlendi)
+// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Kompakt Görünüm - Tarih Sağda)
 function renderPosts() {
     if (!postListContainer) return;
 
@@ -88,14 +88,14 @@ function renderPosts() {
 
     postsToRender.forEach(post => {
         const listItem = document.createElement('li');
-        // CSS ile daha iyi kontrol için sınıflar ekleyelim
-        listItem.className = 'post-item post-item-compact';
+        listItem.className = 'post-item post-item-compact'; // CSS bu sınıfa göre ayarlandı
+        // HTML elemanlarının sırası değişti: Başlık önce, sonra tarih
         listItem.innerHTML = `
+            <a href="${post.href}" class="post-title-compact">${post.title}</a>
             <div class="post-date-compact">
                 <span class="post-month-short">${post.monthShort}</span>
                 <span class="post-day-short">${post.dayShort}</span>
             </div>
-            <a href="${post.href}" class="post-title-compact">${post.title}</a>
         `;
         postListContainer.appendChild(listItem);
     });
