@@ -3,7 +3,6 @@
 // TÜM YAZILARINIZI BURADA GÜNCELLENMİŞ FORMATLA TANIMLAYIN
 const allPosts = [
     // ÖNEMLİ: 'date' alanını "GG Ay YYYY" formatında Türkçe olarak girin.
-    // monthShort ve dayShort alanlarına artık gerek yok.
     { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
     { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025" },
     { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025" },
@@ -15,21 +14,17 @@ const allPosts = [
     { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025" },
     { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025" },
     { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025" }
-    // Daha fazla yazınız varsa buraya ekleyebilirsiniz.
-    // Örnek: { title: "Yeni Yazı", href: "yeni.html", date: "19 Mayıs 2025" },
 ];
 
-const postsPerPage = 5; // Her seferinde kaç yazı gösterileceği
-let postsCurrentlyDisplayed = 0; // Şu anda kaç yazının gösterildiği
+const postsPerPage = 5;
+let postsCurrentlyDisplayed = 0;
 
-// DOM Elementleri (Sadece ilgili sayfalarda bulunacaklar)
 const postListContainer = document.getElementById('postList');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 const themeToggle = document.getElementById('theme-toggle');
 const searchInput = document.getElementById('searchInput');
 const currentYearSpan = document.getElementById('currentYear');
 
-// Tema Değiştirme İşlevi
 if (themeToggle) {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
@@ -50,19 +45,18 @@ if (themeToggle) {
     });
 }
 
-// Arama İşlevi (Basit Filtreleme)
 function filterPosts() {
-    if (!searchInput || !postListContainer) return; // Gerekli elemanlar yoksa çık
+    if (!searchInput || !postListContainer) return;
 
     const filterValue = searchInput.value.toLowerCase();
-    const postItems = postListContainer.getElementsByClassName('post-item'); // .post-item-compact da bu sınıfa dahil
+    const postItems = postListContainer.getElementsByClassName('post-item');
 
     for (let i = 0; i < postItems.length; i++) {
-        const linkElement = postItems[i].getElementsByClassName('post-title-compact')[0]; // Başlık linkini sınıf adıyla al
+        const linkElement = postItems[i].getElementsByClassName('post-title-compact')[0];
         if (linkElement) {
             const txtValue = linkElement.textContent || linkElement.innerText;
             if (txtValue.toLowerCase().indexOf(filterValue) > -1) {
-                postItems[i].style.display = "flex"; // Kompakt düzen flex kullandığı için
+                postItems[i].style.display = "flex";
             } else {
                 postItems[i].style.display = "none";
             }
@@ -70,17 +64,14 @@ function filterPosts() {
     }
 }
 
-// Arama inputuna olay dinleyici ekle
 if (searchInput) {
     searchInput.addEventListener('keyup', filterPosts);
 }
 
-// Yıl Bilgisi
 if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
 }
 
-// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Türkçe Tarih Sağda, Tek Satır)
 function renderPosts() {
     if (!postListContainer) return;
 
@@ -88,8 +79,7 @@ function renderPosts() {
 
     postsToRender.forEach(post => {
         const listItem = document.createElement('li');
-        listItem.className = 'post-item post-item-compact'; // CSS bu sınıfa göre ayarlandı
-        // HTML elemanlarının sırası ve tarih gösterimi değişti:
+        listItem.className = 'post-item post-item-compact';
         listItem.innerHTML = `
             <a href="${post.href}" class="post-title-compact">${post.title}</a>
             <span class="post-date-right-compact">${post.date}</span>
@@ -104,7 +94,6 @@ function renderPosts() {
             loadMoreBtn.style.display = 'none';
         } else {
             if (allPosts.length > postsPerPage && postsCurrentlyDisplayed < allPosts.length) {
-                // *** DİKKAT: BURASI DEĞİŞTİRİLDİ! ***
                 loadMoreBtn.style.display = 'inline-block'; // Ortalama için 'inline-block' olmalı
             } else {
                 loadMoreBtn.style.display = 'none';
@@ -113,12 +102,10 @@ function renderPosts() {
     }
 }
 
-// SAYFA YÜKLENDİĞİNDE İLK YAZILARI GÖSTERME (Sadece index.html için)
 if (postListContainer) {
-    renderPosts(); // İlk parti yazıları yükle
+    renderPosts();
 }
 
-// "DAHA FAZLASINI YÜKLE" BUTONUNA TIKLANDIĞINDA (Sadece index.html için)
 if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', renderPosts);
 }
