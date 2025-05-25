@@ -160,7 +160,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5px; /* Dikey padding biraz azaltıldı */
+            padding: 15px 5px;
             border-bottom: 1px solid var(--border-color);
             gap: 15px;
         }
@@ -184,31 +184,31 @@
         }
 
         .post-date-right-compact {
-            font-size: 0.85em; /* Tarih fontu biraz daha küçültüldü */
+            font-size: 0.85em;
             color: var(--secondary-text);
             white-space: nowrap;
             text-align: right;
-            min-width: 100px; /* "GG Ay YYYY" için biraz daha dar olabilir */
+            min-width: 100px;
         }
 
 
         /* "Daha Fazlasını Yükle" Butonu ve Konteyneri */
         .load-more-container {
-            text-align: center; /* Butonu ortalamak için bu zaten olmalı */
-            padding: 25px 0; /* Dikey boşluk biraz ayarlandı */
+            text-align: center;
+            padding: 25px 0;
         }
 
         #loadMoreBtn {
-            padding: 8px 20px; /* Buton içi boşluk küçültüldü */
-            font-size: 0.85em; /* Font boyutu küçültüldü */
+            padding: 8px 20px;
+            font-size: 0.85em;
             font-weight: 500;
             color: var(--button-text);
             background-color: var(--button-bg);
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 0; /* KÖŞELİ KENARLAR İÇİN GÜNCELLENDİ */
             cursor: pointer;
             transition: background-color 0.2s, opacity 0.2s;
-            display: inline-block; /* text-align:center ile çalışması için bu zaten olmalı */
+            display: inline-block;
         }
 
         #loadMoreBtn:hover {
@@ -218,7 +218,7 @@
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 30px; /* Butondan sonraki boşluk biraz azaltıldı */
+            margin-top: 30px;
             padding: 20px 0;
             border-top: 1px solid var(--border-color);
             font-size: 0.9em;
