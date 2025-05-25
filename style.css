@@ -126,8 +126,7 @@
 
         /* Yazı Listesi Genel */
         .posts-section {
-            /* "Son Yazılar" başlığı kalktığı için bu bölümün üst boşluğu
-               .site-header veya .search-container'ın alt boşluğu ile ayarlanabilir. */
+            /* Boş bırakılabilir veya ihtiyaç olursa margin eklenebilir */
         }
 
         .post-list {
@@ -138,12 +137,12 @@
 
         /* --- YENİ KOMPAKT YAZI STİLLERİ (TARİH SAĞDA, TEK SATIR) --- */
         .post-item-compact {
-            display: flex; /* Ana konteyner flex */
-            justify-content: space-between; /* Başlık ve tarihi iki uca yay */
-            align-items: center; /* Dikeyde ortala */
-            padding: 15px 5px; /* Dikey padding ayarlandı, yatay azaltıldı */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px; /* Dikey padding biraz azaltıldı */
             border-bottom: 1px solid var(--border-color);
-            gap: 15px; /* Başlık ve tarih arasında minimum boşluk */
+            gap: 15px;
         }
 
         .post-item-compact:last-child {
@@ -151,44 +150,37 @@
         }
 
         .post-title-compact {
-            flex-grow: 1; /* Başlığın mümkün olduğunca fazla yer kaplamasını sağla */
-            font-size: 1em; /* Görseldeki gibi, çok büyük değil */
+            flex-grow: 1;
+            font-size: 1em;
             font-weight: 500;
             color: var(--text-color);
             text-decoration: none;
             line-height: 1.4;
-            margin-right: 15px; /* Tarih ile başlık arasına biraz boşluk */
+            margin-right: 15px;
         }
 
         .post-title-compact:hover {
             color: var(--link-color);
         }
 
-        /* Yeni tarih stili (sağda, tek satır) */
         .post-date-right-compact {
-            font-size: 0.9em; /* Görseldeki gibi, başlığa göre biraz daha küçük */
+            font-size: 0.85em; /* Tarih fontu biraz daha küçültüldü */
             color: var(--secondary-text);
-            white-space: nowrap; /* Tarihin tek satırda kalmasını sağlar */
-            text-align: right; /* Konteyneri içinde sağa yasla (genellikle gereksiz ama garanti) */
-            min-width: 110px; /* "GG Ay YYYY" formatı için yeterli alan, örn: "25 Mayıs 2025" */
+            white-space: nowrap;
+            text-align: right;
+            min-width: 100px; /* "GG Ay YYYY" için biraz daha dar olabilir */
         }
 
-        /* --- ESKİ .post-date-compact, .post-month-short, .post-day-short STİLLERİ (Artık Kullanılmıyor, Kaldırıldı) --- */
-        /*
-        .post-date-compact { ... }
-        .post-month-short { ... }
-        .post-day-short { ... }
-        */
 
         /* "Daha Fazlasını Yükle" Butonu ve Konteyneri */
         .load-more-container {
-            text-align: center; /* Butonu ortalamak için */
-            padding: 30px 0; /* Üst ve alt boşluk */
+            text-align: center; /* Butonu ortalamak için bu zaten olmalı */
+            padding: 25px 0; /* Dikey boşluk biraz ayarlandı */
         }
 
         #loadMoreBtn {
-            padding: 10px 25px; /* Buton içi boşluk */
-            font-size: 0.9em;
+            padding: 8px 20px; /* Buton içi boşluk küçültüldü */
+            font-size: 0.85em; /* Font boyutu küçültüldü */
             font-weight: 500;
             color: var(--button-text);
             background-color: var(--button-bg);
@@ -196,7 +188,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.2s, opacity 0.2s;
-            display: inline-block; /* text-align:center ile çalışması için */
+            display: inline-block; /* text-align:center ile çalışması için bu zaten olmalı */
         }
 
         #loadMoreBtn:hover {
@@ -206,7 +198,7 @@
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 40px; /* Butondan sonra boşluk */
+            margin-top: 30px; /* Butondan sonraki boşluk biraz azaltıldı */
             padding: 20px 0;
             border-top: 1px solid var(--border-color);
             font-size: 0.9em;
