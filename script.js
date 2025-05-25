@@ -48,6 +48,7 @@ if (themeToggle) {
 // --- DİĞER SCRIPTLER (Yazı listeleme, arama vb. aynı kalır) ---
 
 const allPosts = [
+    { title: "Şehir Şiiri", href: "sehir-siiri.html", date: "26 Mayıs 2025" },
     { title: "Bıraktım", href: "biraktim.html", date: "25 Mayıs 2025" },
     { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
     { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025" },
