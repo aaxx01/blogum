@@ -2,9 +2,18 @@
 
 // --- TEMA YÖNETİMİ (TÜM SAYFALAR İÇİN KALICI VE VARSAYILAN KOYU TEMA) ---
 
-// Fonksiyon: Belirtilen temayı body elementine uygular
+const themeToggle = document.getElementById('theme-toggle'); // Butonu globalde yakala
+
+// Fonksiyon: Belirtilen temayı body elementine uygular ve buton ikonunu günceller
 function applyTheme(theme) {
     document.body.setAttribute('data-theme', theme);
+    if (themeToggle) { // Buton sayfada varsa ikonunu güncelle
+        if (theme === 'dark') {
+            themeToggle.textContent = '☀️'; // Koyu temada, açık tema ikonunu göster
+        } else {
+            themeToggle.textContent = '🌙'; // Açık temada, koyu tema ikonunu göster
+        }
+    }
 }
 
 // Fonksiyon: Seçilen temayı localStorage'a kaydeder
@@ -13,46 +22,31 @@ function saveTheme(theme) {
 }
 
 // Sayfa yüklendiğinde ilk tema belirleme ve uygulama
-let initialTheme = localStorage.getItem('theme'); // Kayıtlı tema var mı?
+let initialTheme = localStorage.getItem('theme');
 
 if (initialTheme) {
-    applyTheme(initialTheme); // Kayıtlı tema varsa uygula
+    applyTheme(initialTheme);
 } else {
-    // Kayıtlı tema yoksa, varsayılan olarak KOYU TEMA ayarla,
-    // ancak kullanıcının işletim sistemi AÇIK TEMA tercih ediyorsa açık tema yap.
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        initialTheme = 'light'; // İşletim sistemi açık modu tercih ediyorsa
+        initialTheme = 'light';
     } else {
-        initialTheme = 'dark'; // Varsayılan olarak veya işletim sistemi koyu modu tercih ediyorsa
+        initialTheme = 'dark'; // Varsayılan olarak koyu tema
     }
     applyTheme(initialTheme);
-    // İsteğe bağlı: İlk yüklemede belirlenen varsayılan temayı localStorage'a kaydedebilirsiniz.
-    // saveTheme(initialTheme);
-    // Bu, kullanıcının bir sonraki ziyaretinde OS tercihini tekrar kontrol etmeden
-    // doğrudan bu varsayılanla başlamasını sağlar, ta ki kullanıcı butona tıklayana kadar.
-    // Şimdilik, kullanıcı bilinçli bir seçim yapana kadar localStorage'a yazmıyoruz.
 }
-
-// DOM Elementleri (Sadece ilgili sayfalarda bulunacaklar)
-const postListContainer = document.getElementById('postList');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const themeToggle = document.getElementById('theme-toggle'); // Tema değiştirme butonu
-const searchInput = document.getElementById('searchInput');
-const currentYearSpan = document.getElementById('currentYear');
 
 // Tema Değiştirme Butonu İşlevselliği (sadece buton sayfada varsa çalışır)
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         let currentBodyTheme = document.body.getAttribute('data-theme');
         let newTheme = currentBodyTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme); // Yeni temayı uygula
+        applyTheme(newTheme); // Yeni temayı uygula (ikon da burada güncellenir)
         saveTheme(newTheme);  // Yeni temayı localStorage'a kaydet
     });
 }
 
 // --- DİĞER SCRIPTLER (Yazı listeleme, arama vb. aynı kalır) ---
 
-// TÜM YAZILARINIZI BURADA GÜNCELLENMİŞ FORMATLA TANIMLAYIN
 const allPosts = [
     { title: "Bıraktım", href: "biraktim.html", date: "25 Mayıs 2025" },
     { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
@@ -70,6 +64,12 @@ const allPosts = [
 
 const postsPerPage = 5;
 let postsCurrentlyDisplayed = 0;
+
+const postListContainer = document.getElementById('postList');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const searchInput = document.getElementById('searchInput');
+const currentYearSpan = document.getElementById('currentYear');
+
 
 function filterPosts() {
     if (!searchInput || !postListContainer) return;
