@@ -71,7 +71,6 @@
         }
 
         .top-nav a, .top-nav button {
-            /* Stil aynı kalabilir veya temanıza göre ince ayar yapabilirsiniz */
             color: var(--link-color);
             text-decoration: none;
             margin-left: 15px;
@@ -91,8 +90,8 @@
         /* Site Başlığı ve Bio */
         .site-header {
             text-align: center;
-            margin-bottom: 40px; /* Yazı listesiyle arasına boşluk */
-            padding-top: 20px; /* Üst navigasyondan sonra biraz boşluk */
+            margin-bottom: 40px;
+            padding-top: 20px;
         }
 
         .site-header h1 {
@@ -105,21 +104,21 @@
             font-size: 1.1em;
             color: var(--secondary-text);
             max-width: 600px;
-            margin: 0 auto 20px auto; /* Altına da biraz boşluk */
+            margin: 0 auto 20px auto;
         }
 
         /* Arama Çubuğu */
         .search-container {
-            margin-bottom: 40px; /* Yazı listesinden önce daha fazla boşluk */
+            margin-bottom: 40px;
             text-align: center;
         }
 
         .search-container input[type="text"] {
-            padding: 12px 15px; /* Biraz daha büyük */
-            width: 90%; /* Daha geniş */
+            padding: 12px 15px;
+            width: 90%;
             max-width: 450px;
             border: 1px solid var(--border-color);
-            border-radius: 6px; /* Biraz daha yuvarlak */
+            border-radius: 6px;
             font-size: 1em;
             background-color: var(--card-bg);
             color: var(--text-color);
@@ -127,8 +126,7 @@
 
         /* Yazı Listesi Genel */
         .posts-section {
-            /* "Son Yazılar" başlığı kalktığı için bu bölümün üst boşluğu
-               .site-header veya .search-container'ın alt boşluğu ile ayarlanabilir. */
+            /* Boş bırakılabilir veya ihtiyaç olursa margin eklenebilir */
         }
 
         .post-list {
@@ -137,95 +135,67 @@
             margin: 0;
         }
 
-        /* --- YENİ KOMPAKT YAZI STİLLERİ --- */
+        /* --- YENİ KOMPAKT YAZI STİLLERİ (TARİH SAĞDA) --- */
         .post-item-compact {
-            display: flex; /* Yan yana hizalama için */
-            align-items: center; /* Dikeyde ortalamak için */
-            padding: 18px 5px; /* Dikey padding artırıldı, yatay azaltıldı */
+            display: flex; /* Ana konteyner flex */
+            justify-content: space-between; /* Başlık ve tarihi iki uca yay */
+            align-items: center; /* Dikeyde ortala */
+            padding: 18px 5px;
             border-bottom: 1px solid var(--border-color);
-            gap: 15px; /* Tarih ve başlık arası boşluk */
+            gap: 15px; /* Başlık ve tarih arasında minimum boşluk */
         }
 
         .post-item-compact:last-child {
             border-bottom: none;
         }
 
+        .post-title-compact {
+            flex-grow: 1; /* Başlığın mümkün olduğunca fazla yer kaplamasını sağla */
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            line-height: 1.4;
+            margin-right: 15px; /* Tarih ile başlık arasına biraz boşluk */
+        }
+
+        .post-title-compact:hover {
+            color: var(--link-color);
+        }
+
         .post-date-compact {
             display: flex;
-            flex-direction: column; /* Ay ve gün alt alta */
-            align-items: center; /* Tarih bloğunu kendi içinde ortala */
-            justify-content: center;
-            min-width: 55px; /* Tarih için sabit bir genişlik */
-            text-align: center;
+            flex-direction: column; /* Ay ve gün alt alta kalsın */
+            align-items: flex-end; /* Tarih bloğunu sağa yasla (içeriğini) */
+            min-width: 55px; /* Tarih için sabit bir genişlik, hizalamaya yardımcı olur */
+            text-align: right; /* İçindeki metinleri sağa yasla */
         }
 
         .post-month-short {
-            font-size: 0.7em; /* Daha küçük ay yazısı */
+            font-size: 0.7em;
             font-weight: bold;
-            color: var(--link-color); /* Temanızın link rengiyle uyumlu */
+            color: var(--link-color);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             line-height: 1;
         }
 
         .post-day-short {
-            font-size: 1.2em; /* Gün yazısı biraz daha büyük */
+            font-size: 1.2em;
             font-weight: bold;
-            color: var(--text-color); /* Ana metin rengi */
+            color: var(--text-color);
             line-height: 1.2;
-            margin-top: 2px; /* Ay ile gün arasına küçük bir boşluk */
+            margin-top: 2px;
         }
-
-        .post-title-compact {
-            flex-grow: 1; /* Kalan tüm alanı kaplasın */
-            font-size: 1em; /* Başlık boyutu, isteğe göre ayarlanabilir */
-            font-weight: 500; /* Normalden biraz kalın */
-            color: var(--text-color);
-            text-decoration: none;
-            line-height: 1.4; /* Satır yüksekliği */
-        }
-
-        .post-title-compact:hover {
-            color: var(--link-color);
-        }
-        /* --- ESKİ .post-item STİLLERİ (Artık Kullanılmıyorsa Kaldırılabilir veya Yorumlanabilir) --- */
-        /*
-        .post-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.2s;
-        }
-        .post-item:last-child {
-            border-bottom: none;
-        }
-        .post-item a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-        .post-item a:hover {
-            color: var(--link-color);
-        }
-        .post-item .post-date {
-            font-size: 0.9em;
-            color: var(--secondary-text);
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-        */
 
         /* "Daha Fazlasını Yükle" Butonu ve Konteyneri */
         .load-more-container {
-            text-align: center; /* Butonu ortalamak için */
-            padding: 30px 0; /* Üst ve alt boşluk */
+            text-align: center;
+            padding: 30px 0;
         }
 
         #loadMoreBtn {
-            padding: 10px 25px; /* Buton içi boşluk */
+            padding: 10px 25px;
             font-size: 0.9em;
             font-weight: 500;
             color: var(--button-text);
@@ -234,18 +204,17 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.2s, opacity 0.2s;
-            display: inline-block; /* text-align:center ile çalışması için */
+            display: inline-block;
         }
 
         #loadMoreBtn:hover {
             opacity: 0.8;
         }
 
-
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 40px; /* Butondan sonra boşluk */
+            margin-top: 40px;
             padding: 20px 0;
             border-top: 1px solid var(--border-color);
             font-size: 0.9em;
