@@ -1,22 +1,22 @@
 // script.js
 
-// TÜM YAZILARINIZI BURADA YENİ FORMATLA TANIMLAYIN
+// TÜM YAZILARINIZI BURADA GÜNCELLENMİŞ FORMATLA TANIMLAYIN
 const allPosts = [
-    // ÖNEMLİ: Her yazı için monthShort ve dayShort alanlarını doldurmanız gerekecek.
-    // Mevcut 'date' alanını referans alarak bunları oluşturabilirsiniz.
-    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025", monthShort: "MART", dayShort: "01" },
-    { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025", monthShort: "MART", dayShort: "05" },
-    { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025", monthShort: "MART", dayShort: "15" },
-    { title: "Sekizinci Blog Gönderisi", href: "sekizinci-gonderi.html", date: "25 Mart 2025", monthShort: "MART", dayShort: "25" },
-    { title: "Yedinci Harika Makale", href: "yedinci-makale.html", date: "01 Nisan 2025", monthShort: "NİS", dayShort: "01" },
-    { title: "Altıncı Yazı Denemesi", href: "altinci-yazi.html", date: "05 Nisan 2025", monthShort: "NİS", dayShort: "05" },
-    { title: "Beşinci Yazı: Derinlemesine Bakış", href: "besinci-yazi.html", date: "10 Nisan 2025", monthShort: "NİS", dayShort: "10" },
-    { title: "Zengin İçerik Örneği", href: "zengin-icerik.html", date: "20 Nisan 2025", monthShort: "NİS", dayShort: "20" },
-    { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025", monthShort: "MAY", dayShort: "01" },
-    { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025", monthShort: "MAY", dayShort: "15" },
-    { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025", monthShort: "MAY", dayShort: "25" }
+    // ÖNEMLİ: 'date' alanını "GG Ay YYYY" formatında Türkçe olarak girin.
+    // monthShort ve dayShort alanlarına artık gerek yok.
+    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
+    { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025" },
+    { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025" },
+    { title: "Sekizinci Blog Gönderisi", href: "sekizinci-gonderi.html", date: "25 Mart 2025" },
+    { title: "Yedinci Harika Makale", href: "yedinci-makale.html", date: "01 Nisan 2025" },
+    { title: "Altıncı Yazı Denemesi", href: "altinci-yazi.html", date: "05 Nisan 2025" },
+    { title: "Beşinci Yazı: Derinlemesine Bakış", href: "besinci-yazi.html", date: "10 Nisan 2025" },
+    { title: "Zengin İçerik Örneği", href: "zengin-icerik.html", date: "20 Nisan 2025" },
+    { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025" },
+    { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025" },
+    { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025" }
     // Daha fazla yazınız varsa buraya ekleyebilirsiniz.
-    // Örnek: { title: "Yeni Yazı", href: "yeni.html", date: "19 Mayıs 2025", monthShort: "MAY", dayShort: "19" },
+    // Örnek: { title: "Yeni Yazı", href: "yeni.html", date: "19 Mayıs 2025" },
 ];
 
 const postsPerPage = 5; // Her seferinde kaç yazı gösterileceği
@@ -80,7 +80,7 @@ if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
 }
 
-// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Kompakt Görünüm - Tarih Sağda)
+// YAZILARI SAYFAYA EKLEYEN FONKSİYON (Türkçe Tarih Sağda, Tek Satır)
 function renderPosts() {
     if (!postListContainer) return;
 
@@ -89,13 +89,10 @@ function renderPosts() {
     postsToRender.forEach(post => {
         const listItem = document.createElement('li');
         listItem.className = 'post-item post-item-compact'; // CSS bu sınıfa göre ayarlandı
-        // HTML elemanlarının sırası değişti: Başlık önce, sonra tarih
+        // HTML elemanlarının sırası ve tarih gösterimi değişti:
         listItem.innerHTML = `
             <a href="${post.href}" class="post-title-compact">${post.title}</a>
-            <div class="post-date-compact">
-                <span class="post-month-short">${post.monthShort}</span>
-                <span class="post-day-short">${post.dayShort}</span>
-            </div>
+            <span class="post-date-right-compact">${post.date}</span>
         `;
         postListContainer.appendChild(listItem);
     });
