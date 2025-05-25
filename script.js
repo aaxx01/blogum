@@ -104,7 +104,8 @@ function renderPosts() {
             loadMoreBtn.style.display = 'none';
         } else {
             if (allPosts.length > postsPerPage && postsCurrentlyDisplayed < allPosts.length) {
-                loadMoreBtn.style.display = 'block'; // Veya CSS ile ortalamak için 'inline-block'
+                // *** DİKKAT: BURASI DEĞİŞTİRİLDİ! ***
+                loadMoreBtn.style.display = 'inline-block'; // Ortalama için 'inline-block' olmalı
             } else {
                 loadMoreBtn.style.display = 'none';
             }
