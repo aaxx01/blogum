@@ -21,27 +21,14 @@
             <input type="text" id="searchInput" onkeyup="filterPosts()" placeholder="Yazılarda Ara...">
         </div>
 
-        <section class="posts-section">
-            <h2>Son Yazılar</h2>
-            <ul id="postList" class="post-list">
-                <li class="post-item">
-                    <a href="adabi-muaseret-nedir.html">Adab-ı Muaşeret Nedir?</a>
-                    <span class="post-date">25 Mayıs 2025</span>
-                </li>
-                <li class="post-item">
-                    <a href="ikinci-yazi.html">Harika Bir Başka Yazı</a>
-                    <span class="post-date">15 Mayıs 2025</span>
-                </li>
-                <li class="post-item">
-                    <a href="markdown-syntax.html">Markdown Sözdizimi Rehberi</a>
-                    <span class="post-date">01 Mayıs 2025</span>
-                </li>
-                <li class="post-item">
-                    <a href="zengin-icerik.html">Zengin İçerik Örneği</a>
-                    <span class="post-date">20 Nisan 2025</span>
-                </li>
-                </ul>
-        </section>
+<section class="posts-section">
+    <h2>Son Yazılar</h2>
+    <ul id="postList" class="post-list">
+        </ul>
+    <div class="load-more-container" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+        <button id="loadMoreBtn" style="display: none; padding: 12px 25px; cursor: pointer; background-color: var(--button-bg); color: var(--button-text); border: 1px solid var(--border-color); border-radius: 5px; font-size: 0.95em;">Daha fazlasını yükle</button>
+    </div>
+</section>
 
         <footer>
             <p>&copy; <span id="currentYear"></span> Yusuf ÇAKAR - Tüm hakları saklıdır.</p>
