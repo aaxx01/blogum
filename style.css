@@ -10,15 +10,15 @@
             --button-bg-light: #efefef;
             --button-text-light: #333333;
 
-            --bg-color-dark: #1a1a1a;
-            --text-color-dark: #e0e0e0;
-            --link-color-dark: #66ccff;
-            --border-color-dark: #333333;
+            --bg-color-dark: #1a1a1a; /* Koyu tema arka planı (görseldeki gibi) */
+            --text-color-dark: #e0e0e0; /* Koyu tema ana metin rengi */
+            --link-color-dark: #7aa5ff; /* Koyu tema link rengi (biraz daha canlı mavi) */
+            --border-color-dark: #383838; /* Koyu tema kenarlık (biraz daha belirgin) */
             --header-text-dark: #f5f5f5;
-            --secondary-text-dark: #aaaaaa;
+            --secondary-text-dark: #999999; /* Koyu tema ikincil metin (biraz daha açık gri) */
             --card-bg-dark: #2c2c2c;
-            --button-bg-dark: #444444;
-            --button-text-dark: #e0e0e0;
+            --button-bg-dark: #333333; /* Koyu tema buton arka planı */
+            --button-text-dark: #e0e0e0; /* Koyu tema buton metni */
         }
 
         body {
@@ -56,7 +56,7 @@
         }
 
         .container {
-            max-width: 750px; /* Görseldeki gibi daha dar bir alan */
+            max-width: 750px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -71,6 +71,7 @@
         }
 
         .top-nav a, .top-nav button {
+            /* Stil aynı kalabilir veya temanıza göre ince ayar yapabilirsiniz */
             color: var(--link-color);
             text-decoration: none;
             margin-left: 15px;
@@ -87,16 +88,15 @@
             opacity: 0.8;
         }
 
-
         /* Site Başlığı ve Bio */
         .site-header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-top: 30px; /* Üst navigasyon için boşluk */
+            margin-bottom: 40px; /* Yazı listesiyle arasına boşluk */
+            padding-top: 20px; /* Üst navigasyondan sonra biraz boşluk */
         }
 
         .site-header h1 {
-            font-size: 2.8em; /* Görseldeki gibi büyük başlık */
+            font-size: 2.8em;
             color: var(--header-text);
             margin-bottom: 10px;
         }
@@ -105,40 +105,91 @@
             font-size: 1.1em;
             color: var(--secondary-text);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 20px auto; /* Altına da biraz boşluk */
         }
 
         /* Arama Çubuğu */
         .search-container {
-            margin-bottom: 30px;
+            margin-bottom: 40px; /* Yazı listesinden önce daha fazla boşluk */
             text-align: center;
         }
 
         .search-container input[type="text"] {
-            padding: 10px;
-            width: 80%;
-            max-width: 400px;
+            padding: 12px 15px; /* Biraz daha büyük */
+            width: 90%; /* Daha geniş */
+            max-width: 450px;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 6px; /* Biraz daha yuvarlak */
             font-size: 1em;
             background-color: var(--card-bg);
             color: var(--text-color);
         }
 
-        /* Yazı Listesi */
-        .posts-section h2 {
-            font-size: 1.5em;
-            color: var(--header-text);
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+        /* Yazı Listesi Genel */
+        .posts-section {
+            /* "Son Yazılar" başlığı kalktığı için bu bölümün üst boşluğu
+               .site-header veya .search-container'ın alt boşluğu ile ayarlanabilir. */
         }
 
         .post-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
+        /* --- YENİ KOMPAKT YAZI STİLLERİ --- */
+        .post-item-compact {
+            display: flex; /* Yan yana hizalama için */
+            align-items: center; /* Dikeyde ortalamak için */
+            padding: 18px 5px; /* Dikey padding artırıldı, yatay azaltıldı */
+            border-bottom: 1px solid var(--border-color);
+            gap: 15px; /* Tarih ve başlık arası boşluk */
+        }
+
+        .post-item-compact:last-child {
+            border-bottom: none;
+        }
+
+        .post-date-compact {
+            display: flex;
+            flex-direction: column; /* Ay ve gün alt alta */
+            align-items: center; /* Tarih bloğunu kendi içinde ortala */
+            justify-content: center;
+            min-width: 55px; /* Tarih için sabit bir genişlik */
+            text-align: center;
+        }
+
+        .post-month-short {
+            font-size: 0.7em; /* Daha küçük ay yazısı */
+            font-weight: bold;
+            color: var(--link-color); /* Temanızın link rengiyle uyumlu */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .post-day-short {
+            font-size: 1.2em; /* Gün yazısı biraz daha büyük */
+            font-weight: bold;
+            color: var(--text-color); /* Ana metin rengi */
+            line-height: 1.2;
+            margin-top: 2px; /* Ay ile gün arasına küçük bir boşluk */
+        }
+
+        .post-title-compact {
+            flex-grow: 1; /* Kalan tüm alanı kaplasın */
+            font-size: 1em; /* Başlık boyutu, isteğe göre ayarlanabilir */
+            font-weight: 500; /* Normalden biraz kalın */
+            color: var(--text-color);
+            text-decoration: none;
+            line-height: 1.4; /* Satır yüksekliği */
+        }
+
+        .post-title-compact:hover {
+            color: var(--link-color);
+        }
+        /* --- ESKİ .post-item STİLLERİ (Artık Kullanılmıyorsa Kaldırılabilir veya Yorumlanabilir) --- */
+        /*
         .post-item {
             display: flex;
             justify-content: space-between;
@@ -150,31 +201,51 @@
         .post-item:last-child {
             border-bottom: none;
         }
-        .post-item:hover {
-            /* background-color: var(--border-color); /* Hafif hover efekti */
-        }
-
-
         .post-item a {
             text-decoration: none;
-            color: var(--text-color); /* Yazı başlığı rengi */
+            color: var(--text-color);
             font-size: 1.1em;
-            font-weight: 500; /* Biraz daha kalın */
+            font-weight: 500;
         }
         .post-item a:hover {
             color: var(--link-color);
         }
-
         .post-item .post-date {
             font-size: 0.9em;
             color: var(--secondary-text);
-            white-space: nowrap; /* Tarihin tek satırda kalmasını sağlar */
+            white-space: nowrap;
             margin-left: 15px;
         }
+        */
 
+        /* "Daha Fazlasını Yükle" Butonu ve Konteyneri */
+        .load-more-container {
+            text-align: center; /* Butonu ortalamak için */
+            padding: 30px 0; /* Üst ve alt boşluk */
+        }
+
+        #loadMoreBtn {
+            padding: 10px 25px; /* Buton içi boşluk */
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--button-text);
+            background-color: var(--button-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            display: inline-block; /* text-align:center ile çalışması için */
+        }
+
+        #loadMoreBtn:hover {
+            opacity: 0.8;
+        }
+
+
+        /* Footer */
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 40px; /* Butondan sonra boşluk */
             padding: 20px 0;
             border-top: 1px solid var(--border-color);
             font-size: 0.9em;
