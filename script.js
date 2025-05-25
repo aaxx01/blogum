@@ -2,7 +2,7 @@
 
 // TÜM YAZILARINIZI BURADA TANIMLAYIN
 const allPosts = [
-    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" }, // En yeni yazı en üste gelebilir (isteğe bağlı)
+    { title: "Onbirinci Keşif", href: "onbirinci-kesif.html", date: "01 Mart 2025" },
     { title: "Onuncu Konu", href: "onuncu-konu.html", date: "05 Mart 2025" },
     { title: "Dokuzuncu İpucu", href: "dokuzuncu-ipucu.html", date: "15 Mart 2025" },
     { title: "Sekizinci Blog Gönderisi", href: "sekizinci-gonderi.html", date: "25 Mart 2025" },
@@ -13,80 +13,69 @@ const allPosts = [
     { title: "Markdown Sözdizimi Rehberi", href: "markdown-syntax.html", date: "01 Mayıs 2025" },
     { title: "Harika Bir Başka Yazı", href: "ikinci-yazi.html", date: "15 Mayıs 2025" },
     { title: "Adab-ı Muaşeret Nedir?", href: "adabi-muaseret-nedir.html", date: "25 Mayıs 2025" }
-    // Daha fazla yazınız varsa buraya ekleyebilirsiniz:
-    // { title: "Yeni Yazı Başlığı", href: "yeni-yazi.html", date: "GG Ay YYYY" },
+    // Daha fazla yazınız varsa buraya ekleyebilirsiniz.
 ];
-// İsterseniz yazıları tarihe göre sıralayabilirsiniz:
-// allPosts.sort((a, b) => new Date(b.date.split(' ').reverse().join('-')) - new Date(a.date.split(' ').reverse().join('-')));
-// Ancak tarih formatınız "25 Mayıs 2025" ise new Date() ile doğru çalışmayabilir, özel sıralama gerekebilir ya da tarihleri YYYY-AA-GG formatında tutabilirsiniz.
-// Şimdilik elle sıralı olduğunu varsayalım (en yeni en üstte veya en altta).
-// Eğer en yeni en üstte olacaksa ve allPosts dizisini bu şekilde hazırladıysanız, kodumuz doğru çalışacaktır.
 
 const postsPerPage = 5; // Her seferinde kaç yazı gösterileceği
 let postsCurrentlyDisplayed = 0; // Şu anda kaç yazının gösterildiği
 
+// DOM Elementleri (Sadece ilgili sayfalarda bulunacaklar)
 const postListContainer = document.getElementById('postList');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-// Mevcut script.js kodlarınız (tema değiştirici, arama, yıl) burada devam edecek...
-// ... (Önceki kodlarınızı buraya DOKUNMADAN bırakın) ...
+const themeToggle = document.getElementById('theme-toggle');
+const searchInput = document.getElementById('searchInput');
+const currentYearSpan = document.getElementById('currentYear');
 
 // Tema Değiştirme İşlevi
-        const themeToggle = document.getElementById('theme-toggle');
-        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+if (themeToggle) {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        document.body.setAttribute('data-theme', storedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.setAttribute('data-theme', 'dark');
+    }
 
-        if (currentTheme) {
-            document.body.setAttribute('data-theme', currentTheme);
-            if (currentTheme === 'dark') {
-                // themeToggle.textContent = '☀️'; // İkonu da değiştirebilirsiniz
-            }
-        } else { // Eğer local storage'da tema yoksa, sistem tercihini kontrol et
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.body.setAttribute('data-theme', 'dark');
-            }
+    themeToggle.addEventListener('click', () => {
+        let currentBodyTheme = document.body.getAttribute('data-theme');
+        if (currentBodyTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         }
+    });
+}
 
+// Arama İşlevi (Basit Filtreleme)
+function filterPosts() {
+    if (!searchInput || !postListContainer) return; // Gerekli elemanlar yoksa çık
 
-        themeToggle.addEventListener('click', () => {
-            let currentTheme = document.body.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                // themeToggle.textContent = '🌙';
+    const filterValue = searchInput.value.toLowerCase();
+    const postItems = postListContainer.getElementsByClassName('post-item');
+
+    for (let i = 0; i < postItems.length; i++) {
+        const linkElement = postItems[i].getElementsByTagName('a')[0];
+        if (linkElement) {
+            const txtValue = linkElement.textContent || linkElement.innerText;
+            if (txtValue.toLowerCase().indexOf(filterValue) > -1) {
+                postItems[i].style.display = "";
             } else {
-                document.body.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                // themeToggle.textContent = '☀️';
-            }
-        });
-
-        // Arama İşlevi (Basit Filtreleme)
-        function filterPosts() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const ul = document.getElementById('postList');
-            const li = ul.getElementsByClassName('post-item');
-
-            for (let i = 0; i < li.length; i++) {
-                const a = li[i].getElementsByTagName('a')[0];
-                const txtValue = a.textContent || a.innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
+                postItems[i].style.display = "none";
             }
         }
+    }
+}
 
-        // Yıl Bilgisi
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+// Arama inputuna olay dinleyici ekle
+if (searchInput) {
+    searchInput.addEventListener('keyup', filterPosts);
+}
 
-        // Not: Bu tema değiştirme ve arama kodu diğer sayfalara (yazı sayfaları, hakkımda vb.)
-        // eklenecekse, <script> kısmını her HTML dosyasına kopyalamanız veya
-        // harici bir .js dosyasına alıp her sayfadan çağırmanız gerekir.
-        // Aynı şekilde CSS kodlarını da <style> etiketleri arasında her sayfaya
-        // kopyalayabilir veya harici bir style.css dosyasına alıp <link> etiketi ile bağlayabilirsiniz.
-// ... (Mevcut script.js kodlarınızın sonu) ...
+// Yıl Bilgisi
+if (currentYearSpan) {
+    currentYearSpan.textContent = new Date().getFullYear();
+}
 
 // YAZILARI SAYFAYA EKLEYEN FONKSİYON
 function renderPosts() {
@@ -97,10 +86,9 @@ function renderPosts() {
     postsToRender.forEach(post => {
         const listItem = document.createElement('li');
         listItem.className = 'post-item';
-        listItem.innerHTML = `
-            <a href="<span class="math-inline">\{post\.href\}"\></span>{post.title}</a>
-            <span class="post-date">${post.date}</span>
-        `;
+        // *** DİKKAT: BURASI DÜZELTİLDİ! ***
+        // Önceki kodunuzda burada bir hata vardı. Doğrusu aşağıdaki gibi olmalı:
+        listItem.innerHTML = `<a href="${post.href}">${post.title}</a><span class="post-date">${post.date}</span>`;
         postListContainer.appendChild(listItem);
     });
 
@@ -111,48 +99,27 @@ function renderPosts() {
         if (postsCurrentlyDisplayed >= allPosts.length) {
             loadMoreBtn.style.display = 'none'; // Tüm yazılar gösterildiyse butonu gizle
         } else {
-            loadMoreBtn.style.display = 'block'; // Hala gösterilecek yazı varsa butonu göster
+            // Butonu sadece gerçekten daha fazla yazı varsa göster (ilk yüklemede veya sonrasında)
+            if (allPosts.length > postsPerPage && postsCurrentlyDisplayed < allPosts.length) {
+                loadMoreBtn.style.display = 'block';
+            } else {
+                loadMoreBtn.style.display = 'none'; // Eğer toplam yazı sayısı ilk gösterimden az veya eşitse de gizle
+            }
         }
     }
 }
 
-// SAYFA YÜKLENDİĞİNDE İLK YAZILARI GÖSTERME
-// Bu kod, script.js dosyasının sonunda olduğu için DOM genellikle hazır olur.
-// Sadece index.html'de çalışması için postListContainer varlığını kontrol ediyoruz.
+// SAYFA YÜKLENDİĞİNDE İLK YAZILARI GÖSTERME (Sadece index.html için)
 if (postListContainer) {
     renderPosts(); // İlk parti yazıları yükle
 }
 
-// "DAHA FAZLASINI YÜKLE" BUTONUNA TIKLANDIĞINDA
+// "DAHA FAZLASINI YÜKLE" BUTONUNA TIKLANDIĞINDA (Sadece index.html için)
 if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', renderPosts);
 }
 
-// ARAMA FONKSİYONUNU GÜNCELLEME (ÖNEMLİ)
-// filterPosts fonksiyonu artık `allPosts` dizisindeki tüm yazıları değil,
-// sadece o an DOM'da olan `<li>` elemanlarını filtreleyecektir.
-// Bu, "minimal teknik detay" hedefimiz için kabul edilebilir bir durumdur.
-// Eğer tüm yazılar arasında arama isteniyorsa, filterPosts fonksiyonunun
-// `allPosts` dizisini filtreleyip `postListContainer` içeriğini yeniden oluşturması gerekir
-// ki bu daha karmaşık bir değişiklik olur. Şimdilik mevcut arama yapısı korunmuştur.
-// Mevcut filterPosts fonksiyonunuz şöyleydi ve dinamik eklenenler için de çalışmaya devam etmeli:
-/*
-function filterPosts() {
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toLowerCase();
-    const ul = document.getElementById('postList'); // Bu hala aynı ul
-    const li = ul.getElementsByClassName('post-item'); // O an DOM'da olan li'leri alır
-
-    for (let i = 0; i < li.length; i++) {
-        const a = li[i].getElementsByTagName('a')[0];
-        const txtValue = a.textContent || a.innerText;
-        if (txtValue.toLowerCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}
-*/
-// Eğer filterPosts fonksiyonunuz script.js'in daha önceki bir yerindeyse, dokunmanıza gerek yok.
-// Sadece yukarıdaki "YAZILARI SAYFAYA EKLEYEN FONKSİYON" ve devamını en sona ekleyin.
+// Not: Bu script.js dosyası, <script src="script.js"></script> etiketi ile
+// tüm HTML sayfalarınıza (index.html, hakkimda.html, yazı sayfaları vb.) eklenebilir.
+// Script içindeki kontroller (if (themeToggle) vb.) sayesinde sadece ilgili sayfada
+// bulunan elementlerle ilgili kodlar çalışacaktır.
