@@ -20,19 +20,22 @@
         </header>
 
         <div class="search-container">
-            <input type="text" id="searchInput" onkeyup="filterPosts()" placeholder="Yazılarda Ara...">
+            <input type="text" id="searchInput" placeholder="Yazılarda Ara...">
+            {/* Not: onkeyup="filterPosts()" event'ini JavaScript dosyasından eklemek daha iyi bir pratiktir, 
+                 ancak mevcut sorunun kaynağı bu değildir. Şimdilik bu şekilde bırakabiliriz. */}
         </div>
 
         <section class="posts-section">
             <ul id="postList" class="post-list">
                 </ul>
-            <div class="load-more-container"> {/* Inline stiller kaldırıldı */}
-                <button id="loadMoreBtn" style="display: none;">Daha fazlasını yükle</button> {/* Sadece display:none kaldı, diğer inline stiller kaldırıldı */}
+            <div class="load-more-container">
+                <button id="loadMoreBtn" style="display: none;">Daha fazlasını yükle</button>
             </div>
         </section>
 
         <footer>
             <p>&copy; <span id="currentYear"></span> Yusuf ÇAKAR - Tüm hakları saklıdır.</p>
+            {/* İsterseniz yukarıdaki Yusuf ÇAKAR kısmını kendi adınızla değiştirebilirsiniz. */}
         </footer>
     </div>
 
