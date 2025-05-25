@@ -9,8 +9,8 @@
             --card-bg-light: #ffffff;
             --button-bg-light: #efefef;
             --button-text-light: #333333;
-            --selection-bg-light: #fff1a7; /* Aydınlık tema için vurgu rengi (açık sarı) */
-            --selection-text-light: #000000; /* Aydınlık tema için vurgulanan metin rengi */
+            --selection-bg-light: #fff1a7;
+            --selection-text-light: #000000;
 
             --bg-color-dark: #1a1a1a;
             --text-color-dark: #e0e0e0;
@@ -21,8 +21,8 @@
             --card-bg-dark: #2c2c2c;
             --button-bg-dark: #333333;
             --button-text-dark: #e0e0e0;
-            --selection-bg-dark: #ffd966;  /* Koyu tema için vurgu rengi (biraz daha canlı sarı) */
-            --selection-text-dark: #000000; /* Koyu tema için vurgulanan metin rengi */
+            --selection-bg-dark: #ffd966;
+            --selection-text-dark: #000000;
         }
 
         body {
@@ -35,17 +35,14 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Metin Seçimi Stili */
         ::selection {
             background-color: var(--selection-bg);
             color: var(--selection-text);
         }
-        /* Firefox için özel ön ek (gerekebilir) */
         ::-moz-selection {
             background-color: var(--selection-bg);
             color: var(--selection-text);
         }
-
 
         body[data-theme="light"] {
             --bg-color: var(--bg-color-light);
@@ -81,7 +78,6 @@
             padding: 20px;
         }
 
-        /* Sağ Üst Navigasyon */
         .top-nav {
             display: flex;
             justify-content: flex-end;
@@ -107,7 +103,6 @@
             opacity: 0.8;
         }
 
-        /* Site Başlığı ve Bio */
         .site-header {
             text-align: center;
             margin-bottom: 40px;
@@ -127,7 +122,6 @@
             margin: 0 auto 20px auto;
         }
 
-        /* Arama Çubuğu */
         .search-container {
             margin-bottom: 40px;
             text-align: center;
@@ -144,9 +138,8 @@
             color: var(--text-color);
         }
 
-        /* Yazı Listesi Genel */
         .posts-section {
-            /* Boş bırakılabilir veya ihtiyaç olursa margin eklenebilir */
+            /* İsteğe bağlı: margin-top eklenebilir */
         }
 
         .post-list {
@@ -155,7 +148,6 @@
             margin: 0;
         }
 
-        /* --- YENİ KOMPAKT YAZI STİLLERİ (TARİH SAĞDA, TEK SATIR) --- */
         .post-item-compact {
             display: flex;
             justify-content: space-between;
@@ -191,8 +183,6 @@
             min-width: 100px;
         }
 
-
-        /* "Daha Fazlasını Yükle" Butonu ve Konteyneri */
         .load-more-container {
             text-align: center;
             padding: 25px 0;
@@ -205,7 +195,7 @@
             color: var(--button-text);
             background-color: var(--button-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0; /* KÖŞELİ KENARLAR İÇİN GÜNCELLENDİ */
+            border-radius: 3px; /* "BİR TIK OVAL" İÇİN GÜNCELLENDİ */
             cursor: pointer;
             transition: background-color 0.2s, opacity 0.2s;
             display: inline-block;
@@ -215,7 +205,6 @@
             opacity: 0.8;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             margin-top: 30px;
