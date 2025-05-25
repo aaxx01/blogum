@@ -3,93 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazılarım</title>
+    <title>Benim Harika Blogum</title>
     <style>
+        /* Genel Stiller ve Reset */
+        :root {
+            --bg-color-light: #ffffff;
+            --text-color-light: #333333;
+            --link-color-light: #007bff;
+            --border-color-light: #eeeeee;
+            --header-text-light: #222222;
+            --secondary-text-light: #555555;
+            --card-bg-light: #ffffff;
+            --button-bg-light: #efefef;
+            --button-text-light: #333333;
+
+            --bg-color-dark: #1a1a1a;
+            --text-color-dark: #e0e0e0;
+            --link-color-dark: #66ccff;
+            --border-color-dark: #333333;
+            --header-text-dark: #f5f5f5;
+            --secondary-text-dark: #aaaaaa;
+            --card-bg-dark: #2c2c2c;
+            --button-bg-dark: #444444;
+            --button-text-dark: #e0e0e0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
-        header {
+
+        body[data-theme="light"] {
+            --bg-color: var(--bg-color-light);
+            --text-color: var(--text-color-light);
+            --link-color: var(--link-color-light);
+            --border-color: var(--border-color-light);
+            --header-text: var(--header-text-light);
+            --secondary-text: var(--secondary-text-light);
+            --card-bg: var(--card-bg-light);
+            --button-bg: var(--button-bg-light);
+            --button-text: var(--button-text-light);
+        }
+
+        body[data-theme="dark"] {
+            --bg-color: var(--bg-color-dark);
+            --text-color: var(--text-color-dark);
+            --link-color: var(--link-color-dark);
+            --border-color: var(--border-color-dark);
+            --header-text: var(--header-text-dark);
+            --secondary-text: var(--secondary-text-dark);
+            --card-bg: var(--card-bg-dark);
+            --button-bg: var(--button-bg-dark);
+            --button-text: var(--button-text-dark);
+        }
+
+        .container {
+            max-width: 750px; /* Görseldeki gibi daha dar bir alan */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sağ Üst Navigasyon */
+        .top-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .top-nav a, .top-nav button {
+            color: var(--link-color);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.9em;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .top-nav button:hover, .top-nav a:hover {
+            opacity: 0.8;
+        }
+
+
+        /* Site Başlığı ve Bio */
+        .site-header {
             text-align: center;
             margin-bottom: 40px;
+            padding-top: 30px; /* Üst navigasyon için boşluk */
         }
-        header h1 {
-            font-size: 2.5em;
+
+        .site-header h1 {
+            font-size: 2.8em; /* Görseldeki gibi büyük başlık */
+            color: var(--header-text);
+            margin-bottom: 10px;
         }
-        .container {
+
+        .site-header .bio {
+            font-size: 1.1em;
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Arama Çubuğu */
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        /* Yazı Listesi */
+        .posts-section h2 {
+            font-size: 1.5em;
+            color: var(--header-text);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .post-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .post-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Kutucuklar arası boşluk */
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
         }
-        .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 300px; /* Kutucuk genişliği */
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: left;
+        .post-item:last-child {
+            border-bottom: none;
         }
-        .card a {
+        .post-item:hover {
+            /* background-color: var(--border-color); /* Hafif hover efekti */
+        }
+
+
+        .post-item a {
             text-decoration: none;
-            color: inherit; /* Bağlantı rengi kutuyla aynı olsun */
+            color: var(--text-color); /* Yazı başlığı rengi */
+            font-size: 1.1em;
+            font-weight: 500; /* Biraz daha kalın */
         }
-        .card h3 {
-            margin-top: 0;
-            color: #007bff; /* Başlık rengi */
+        .post-item a:hover {
+            color: var(--link-color);
         }
-        .card p {
+
+        .post-item .post-date {
             font-size: 0.9em;
-            color: #555;
+            color: var(--secondary-text);
+            white-space: nowrap; /* Tarihin tek satırda kalmasını sağlar */
+            margin-left: 15px;
         }
+
         footer {
             text-align: center;
             margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
             font-size: 0.9em;
-            color: #777;
+            color: var(--secondary-text);
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Yazı Koleksiyonum</h1>
-        <p>İlginizi çeken konulara göz atın.</p>
-    </header>
+<body data-theme="light"> <div class="container">
+        <nav class="top-nav">
+            <button id="theme-toggle">☀️/🌙</button>
+            <a href="hakkimda.html">Hakkımda</a>
+        </nav>
 
-    <main>
-        <div class="container">
-            <div class="card">
-                <a href="adabi-muaseret-nedir.html">
-                    <h3>Adab-ı Muaşeret Nedir?</h3>
-                    <p>Toplumsal yaşamda uyulması gereken nezaket kuralları üzerine bir yazı.</p>
-                </a>
-            </div>
+        <header class="site-header">
+            <h1>Benim Harika Blogum</h1>
+            <p class="bio">Burası teknoloji, hayat ve ilgi çekici bulduğum diğer şeyler hakkında yazdığım kişisel blogum/sitem. Hızlı, minimalist ve kullanıcı dostu bir deneyim sunmayı amaçlıyorum.</p>
+        </header>
 
-            <div class="card">
-                <a href="ikinci-yazi.html">
-                    <h3>İkinci Yazım</h3>
-                    <p>Bu da başka bir konu hakkında yazdığım ikinci yazı.</p>
-                </a>
-            </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="filterPosts()" placeholder="Yazılarda Ara...">
+        </div>
 
-            <div class="card">
-                <a href="https://docs.google.com/document/d/BURAYA_GOOGLE_DOKUMAN_IDSI/edit?usp=sharing" target="_blank">
-                    <h3>Google Dökümanlardaki Yazım</h3>
-                    <p>Bu yazı doğrudan Google Dökümanlar üzerinden okunabilir (yeni sekmede açılır).</p>
-                </a>
-            </div>
+        <section class="posts-section">
+            <h2>Son Yazılar</h2>
+            <ul id="postList" class="post-list">
+                <li class="post-item">
+                    <a href="adabi-muaseret-nedir.html">Adab-ı Muaşeret Nedir?</a>
+                    <span class="post-date">25 Mayıs 2025</span>
+                </li>
+                <li class="post-item">
+                    <a href="ikinci-yazi.html">Harika Bir Başka Yazı</a>
+                    <span class="post-date">15 Mayıs 2025</span>
+                </li>
+                <li class="post-item">
+                    <a href="markdown-syntax.html">Markdown Sözdizimi Rehberi</a>
+                    <span class="post-date">01 Mayıs 2025</span>
+                </li>
+                <li class="post-item">
+                    <a href="zengin-icerik.html">Zengin İçerik Örneği</a>
+                    <span class="post-date">20 Nisan 2025</span>
+                </li>
+                </ul>
+        </section>
 
-            </div>
-    </main>
+        <footer>
+            <p>&copy; <span id="currentYear"></span> Benim Sitem. Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 Benim Sitem</p>
-    </footer>
+    <script>
+        // Tema Değiştirme İşlevi
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+        if (currentTheme) {
+            document.body.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                // themeToggle.textContent = '☀️'; // İkonu da değiştirebilirsiniz
+            }
+        } else { // Eğer local storage'da tema yoksa, sistem tercihini kontrol et
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+
+        themeToggle.addEventListener('click', () => {
+            let currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                // themeToggle.textContent = '🌙';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                // themeToggle.textContent = '☀️';
+            }
+        });
+
+        // Arama İşlevi (Basit Filtreleme)
+        function filterPosts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const ul = document.getElementById('postList');
+            const li = ul.getElementsByClassName('post-item');
+
+            for (let i = 0; i < li.length; i++) {
+                const a = li[i].getElementsByTagName('a')[0];
+                const txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+        // Yıl Bilgisi
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Not: Bu tema değiştirme ve arama kodu diğer sayfalara (yazı sayfaları, hakkımda vb.)
+        // eklenecekse, <script> kısmını her HTML dosyasına kopyalamanız veya
+        // harici bir .js dosyasına alıp her sayfadan çağırmanız gerekir.
+        // Aynı şekilde CSS kodlarını da <style> etiketleri arasında her sayfaya
+        // kopyalayabilir veya harici bir style.css dosyasına alıp <link> etiketi ile bağlayabilirsiniz.
+    </script>
 </body>
 </html>
